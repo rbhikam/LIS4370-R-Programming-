@@ -1,0 +1,15 @@
+Package: RBhikam
+Title: Tools for Cleaning Data
+Version: 0.1.0
+Authors@R: 
+    person("Rajdai", "Bhikam", email = "rajdaib@usf.edu", role = c("aut", "cre"))
+    
+Description: RBhikam package is for beginner users of R studio. This package is designed to help 
+    users clean, summarize and organize data. It will help the user with processing simple functions 
+    like renaming columns and removing missing values,and just organizating the data which will make 
+    it easy for analysis and reporting.  
+Depends: R (>= 3.1.2)
+Imports: dplyr, tidyr, readr, stringr
+License: CC0
+Encoding: UTF-8
+LazyData: true
