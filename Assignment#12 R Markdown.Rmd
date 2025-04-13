@@ -1,0 +1,103 @@
+---
+title: "Module#12 Assignment R Markdown"
+author: "Rajdai Bhikam"
+date: "2025-04-13"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##This assignment outlines the core functions I created for my final project using the `mtcars` dataset. These functions are part of my R package `RBhikam`, designed to help new R users clean, summarize, and visualize data easily.
+
+---
+**FUNCTION 1**
+
+**Purpose:**
+This function is used to remove missing values and convert column names to lowercase. 
+
+**Input:**
+`df`(data frame): The dataset to clean
+
+**Output:**
+A clean dataframe with no `NA` values and standardize column names.
+
+**Code:**
+
+```{r}
+
+clean_data <- function(df) {
+  df <- na.omit(df)                 
+  names(df) <- tolower(names(df)) 
+  return(df)                       
+}
+``` 
+**Example:**
+```{r}
+cleaned <- clean_data(mtcars)
+
+head(cleaned)
+
+```
+**FUNCTION 2**
+**Purpose:**
+This function groups data by categorical variables and then calculates the mean of a selected column
+**Input:**
+`df`: The dataframe
+`group_col`: column by group
+`summary_col`: summary of numeric column
+
+**Output:**
+A summary of the datframe
+
+**CODE:**
+
+```{r}
+summarize_by_group <- function(df, group_col, summary_col) {
+  df |>
+    dplyr::group_by(.data[[group_col]]) |>
+    dplyr::summarise(mean_value = mean(.data[[summary_col]], na.rm = TRUE))
+}
+```
+**Example:**
+```{r}
+summarize_by_group(mtcars, "cyl", "mpg")
+```
+
+**FUNCTION 3**
+
+**Purpose:**
+This function creates a bar plot of the grouped data.
+
+**Input:**
+`df`: The dataframe with grouped summaries
+`x`: column name for x-axis
+`y`: column name for y-axis
+
+**Output:**
+A ggplot2 chart
+
+**CODE:**
+
+```{r}
+library(ggplot2)
+
+plot_summary <- function(df, x, y) {
+  ggplot(data = df, aes(x = .data[[x]], y = .data[[y]])) +
+    geom_bar(stat = "identity", fill = "steelblue") +
+    theme_minimal()
+}
+```
+**Example:**
+
+```{r}
+summary_df <- summarize_by_group(mtcars, "cyl", "mpg")
+plot_summary(summary_df, "cyl", "mean_value")
+
+
+```
+
+**Documentation**
+R Markdown is a useful tool because it allows you to combine text, code, output all in one document. You can also add headers and comments to structure your data so its much easier to understand. I used the mt cars data set which is built into R for data purposes because I wanted a set of data in which I can showcase how easy it is to clean data even if you are beginner user of R studio. The challenges I faced with R markdown was learning to get the data to be in different sections. 
+
